@@ -1,4 +1,3 @@
-import Badge from "./badge";
 import React from "react";
 
 export default function PlayerMove(props){
