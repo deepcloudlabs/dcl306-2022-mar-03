@@ -52,6 +52,13 @@ class App extends React.PureComponent {
         game.counter = this.getInitialCounter(game.level);
     }
 
+    persistStateToLocalStorage = () => {
+        localStorage.setItem(
+            "mastermind",
+            JSON.stringify({...this.state})
+        );
+    }
+
     componentDidMount() {
         setInterval(() => {
             let game = {...this.state.game};
@@ -65,12 +72,22 @@ class App extends React.PureComponent {
             });
 
         }, 1000);
+        let localState =
+            JSON.parse(localStorage.getItem("mastermind"));
+        if (localState != null) {
+            this.setState(localState);
+        } else {
+            let state = {...this.state};
+            localStorage.setItem(
+                "mastermind", JSON.stringify(state));
+        }
     }
 
     //region create random numbers
     createDigit = (min, max) => {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
+
     createSecret = (level) => {
         let digits = [];
         digits.push(this.createDigit(1, 9));
@@ -79,7 +96,9 @@ class App extends React.PureComponent {
             if (digits.includes(digit)) continue;
             digits.push(digit);
         }
-        return digits.reduce((s, u) => 10 * s + u, 0);
+        let secret = digits.reduce((s, u) => 10 * s + u, 0);
+        console.log(secret);
+        return secret;
     }
     //endregion
 
@@ -104,7 +123,7 @@ class App extends React.PureComponent {
             game.moves.push(move);
             game.tries++;
         }
-        this.setState({game, statistics});
+        this.setState({game, statistics}, this.persistStateToLocalStorage);
     }
 
     createMove = (guess, secret) => {
@@ -181,7 +200,7 @@ class App extends React.PureComponent {
                                     <tr key={move.guess + index.toString()}>
                                         <td>{index + 1}</td>
                                         <td>{move.guess}</td>
-                                        <td><PlayerMove value={move} /></td>
+                                        <td><PlayerMove value={move}/></td>
                                     </tr>
                                 )
                             }
