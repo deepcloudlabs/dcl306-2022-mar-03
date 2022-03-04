@@ -1,6 +1,10 @@
 import React from "react";
 import Move from "./move";
 import Badge from "./components/badge";
+import CardHeader from "./components/card-header";
+import Card from "./components/card";
+import CardBody from "./components/card-body";
+import Container from "./components/container";
 
 const COUNTER_BASE_VALUE = 60;
 const COUNTER_INCREMENT_PER_LEVEL = 10;
@@ -132,12 +136,10 @@ class App extends React.PureComponent {
 
     render = () => {
         return (
-            <div className="container">
-                <div className="card">
-                    <div className="card-header">
-                        <h3 className="card-title">Game Console</h3>
-                    </div>
-                    <div className="card-body">
+            <Container>
+                <Card>
+                    <CardHeader title="Game Console"/>
+                    <CardBody>
                         <Badge id="level"
                                label="Game Level"
                                value={this.state.game.level}
@@ -165,15 +167,12 @@ class App extends React.PureComponent {
                                     className="btn btn-success">Play
                             </button>
                         </div>
-                    </div>
-
-                </div>
+                    </CardBody>
+                </Card>
                 <p></p>
-                <div className="card">
-                    <div className="card-header">
-                        <h3 className="card-title">Moves</h3>
-                    </div>
-                    <div className="card-body">
+                <Card>
+                    <CardHeader title="Moves"/>
+                    <CardBody>
                         <table className="table table-hover table-striped table-bordered">
                             <thead>
                             <tr>
@@ -194,14 +193,12 @@ class App extends React.PureComponent {
                             }
                             </tbody>
                         </table>
-                    </div>
-                </div>
+                    </CardBody>
+                </Card>
                 <p></p>
-                <div className="card">
-                    <div className="card-header">
-                        <h3 className="card-title">Game Statistics</h3>
-                    </div>
-                    <div className="card-body">
+                <Card>
+                    <CardHeader title="Game Statistics"/>
+                    <CardBody>
                         <Badge id="total"
                                label="Total"
                                value={this.state.statistics.total}
@@ -214,9 +211,9 @@ class App extends React.PureComponent {
                                label="Loses"
                                value={this.state.statistics.loses}
                                className="alert-danger"></Badge>
-                    </div>
-                </div>
-            </div>
+                    </CardBody>
+                </Card>
+            </Container>
         );
     }
 }
