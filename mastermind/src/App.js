@@ -5,6 +5,7 @@ import CardHeader from "./components/card-header";
 import Card from "./components/card";
 import CardBody from "./components/card-body";
 import Container from "./components/container";
+import PlayerMove from "./components/player-move";
 
 const COUNTER_BASE_VALUE = 60;
 const COUNTER_INCREMENT_PER_LEVEL = 10;
@@ -63,7 +64,7 @@ class App extends React.PureComponent {
 
             });
 
-        }, 1);
+        }, 1000);
     }
 
     //region create random numbers
@@ -180,7 +181,7 @@ class App extends React.PureComponent {
                                     <tr key={move.guess + index.toString()}>
                                         <td>{index + 1}</td>
                                         <td>{move.guess}</td>
-                                        <td>{move.message}</td>
+                                        <td><PlayerMove value={move} /></td>
                                     </tr>
                                 )
                             }
