@@ -67,19 +67,19 @@ class App extends React.PureComponent {
     }
 
     //region create random numbers
-        createDigit = (min, max) => {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
+    createDigit = (min, max) => {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    createSecret = (level) => {
+        let digits = [];
+        digits.push(this.createDigit(1, 9));
+        while (digits.length < level) {
+            let digit = this.createDigit(0, 9);
+            if (digits.includes(digit)) continue;
+            digits.push(digit);
         }
-        createSecret = (level) => {
-            let digits = [];
-            digits.push(this.createDigit(1, 9));
-            while (digits.length < level) {
-                let digit = this.createDigit(0, 9);
-                if (digits.includes(digit)) continue;
-                digits.push(digit);
-            }
-            return digits.reduce((s, u) => 10 * s + u, 0);
-        }
+        return digits.reduce((s, u) => 10 * s + u, 0);
+    }
     //endregion
 
     handleInputChange = (event) => {
@@ -124,14 +124,7 @@ class App extends React.PureComponent {
                 }
             }
         }
-        if (perfectMatch === 0 && partialMatch === 0)
-            return new Move(guess, "No Match");
-        let message = "";
-        if (partialMatch > 0)
-            message += "-" + partialMatch;
-        if (perfectMatch > 0)
-            message += "+" + perfectMatch;
-        return new Move(guess, message);
+        return new Move(guess, perfectMatch, partialMatch);
     }
 
     render = () => {
