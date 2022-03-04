@@ -136,6 +136,33 @@ class App extends React.PureComponent {
                     </div>
 
                 </div>
+                <div className="card">
+                    <div className="card-header">
+                        <h3 className="card-title">Moves</h3>
+                    </div>
+                    <div className="card-body">
+                        <table className="table table-hover table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Guess</th>
+                                    <th>Message</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {
+                               this.state.game.moves.map((move,index) =>
+                                  <tr key={move.guess + index.toString()}>
+                                     <td>{index+1}</td>
+                                     <td>{move.guess}</td>
+                                     <td>{move.message}</td>
+                                  </tr>
+                               )
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         );
     }
