@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Counter</title>
+    <script type="text/javascript">
+        // JS: i) functional ii) event-driven iii) asynchronous
+        //     iv) object-based
+
+        class CounterApp {
+            constructor() { // callback function
+                this.counter = 0;
+            }
+            init = () => {
+                this.spanCounter = document.querySelector("#counter");
+                setInterval(this.increment, 1000);
+            }
+            increment = () => {
+                this.counter++;
+                this.spanCounter.innerHTML= this.counter.toString();
+            }
+        }
+        let app = new CounterApp();
+        window.onload = app.init;
+    </script>
+</head>
+<body>
+<div>
+    <h1>Counter: <span id="counter">0</span></h1>
+</div>
+</body>
+</html>
