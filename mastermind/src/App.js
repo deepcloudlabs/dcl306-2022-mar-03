@@ -1,5 +1,6 @@
 import React from "react";
 import Move from "./move";
+import Badge from "./components/badge";
 
 const COUNTER_BASE_VALUE = 60;
 const COUNTER_INCREMENT_PER_LEVEL = 10;
@@ -137,30 +138,22 @@ class App extends React.PureComponent {
                         <h3 className="card-title">Game Console</h3>
                     </div>
                     <div className="card-body">
-                        <div className="form-group">
-                            <label htmlFor="level">Game Level:</label>
-                            <span id="level"
-                                  className="badge alert-info">
-                                {this.state.game.level}</span>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="tries">Tries:</label>
-                            <span id="tries"
-                                  className="badge alert-info">
-                                {this.state.game.tries}</span>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="counter">Counter:</label>
-                            <span id="counter"
-                                  className="badge alert-info">
-                                {this.state.game.counter}</span>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="lives">Lives:</label>
-                            <span id="lives"
-                                  className="badge alert-info">
-                                {this.state.game.lives}</span>
-                        </div>
+                        <Badge id="level"
+                               label="Game Level"
+                               value={this.state.game.level}
+                               className="alert-success"></Badge>
+                        <Badge id="tries"
+                               label="Tries"
+                               value={this.state.game.tries}
+                               className="alert-danger"></Badge>
+                        <Badge id="counter"
+                               label="Counter"
+                               value={this.state.game.counter}
+                               className="alert-info"></Badge>
+                        <Badge id="lives"
+                               label="Lives"
+                               value={this.state.game.lives}
+                               className="alert-warning"></Badge>
                         <div className="form-group">
                             <label htmlFor="guess">Guess:</label>
                             <input id="guess"
@@ -209,24 +202,18 @@ class App extends React.PureComponent {
                         <h3 className="card-title">Game Statistics</h3>
                     </div>
                     <div className="card-body">
-                        <div className="form-group">
-                            <label htmlFor="total">Total:</label>
-                            <span id="total"
-                                  className="badge alert-info">
-                                {this.state.statistics.total}</span>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="wins">Wins:</label>
-                            <span id="wins"
-                                  className="badge alert-info">
-                                {this.state.statistics.wins}</span>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="loses">Loses:</label>
-                            <span id="loses"
-                                  className="badge alert-info">
-                                {this.state.statistics.loses}</span>
-                        </div>
+                        <Badge id="total"
+                               label="Total"
+                               value={this.state.statistics.total}
+                               className="alert-info"></Badge>
+                        <Badge id="wins"
+                               label="Wins"
+                               value={this.state.statistics.wins}
+                               className="alert-success"></Badge>
+                        <Badge id="loses"
+                               label="Loses"
+                               value={this.state.statistics.loses}
+                               className="alert-danger"></Badge>
                     </div>
                 </div>
             </div>
