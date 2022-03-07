@@ -8,6 +8,7 @@ import Input from "./components/Input";
 import Checkbox from "./components/Checkbox";
 import SelectBox from "./components/Selectbox";
 import Image from "./components/Image";
+import Button from "./components/Button";
 
 export default function Hr() {
     const DEPARTMENTS = ["IT", "Sales", "Finance", "HR"];
@@ -17,8 +18,7 @@ export default function Hr() {
         useState(new Array());
 
     function handleInputChange(event) {
-        const name = event.target.name;
-        const value = event.target.value;
+        const {name, value} = event.target;
         let newEmployee = {...employee};
         if (name === 'fulltime') {
             newEmployee[name] = !newEmployee[name];
@@ -30,6 +30,26 @@ export default function Hr() {
 
     function handlePhotoChange(photo){
         setEmployee({...employee, photo}) ;
+    }
+
+    function findEmployeeByIdentity(event){
+
+    }
+
+    function findEmployees(event){
+
+    }
+
+    function hireEmployee(event){
+
+    }
+
+    function fireEmployee(event){
+
+    }
+
+    function updateEmployee(event){
+
     }
 
     return (
@@ -71,6 +91,28 @@ export default function Hr() {
                            handleFileChange={handlePhotoChange}
                            value={employee.photo}
                            name="photo"></Image>
+                    <div className="input-group">
+                    <Button id="find"
+                            label="Find Employee"
+                            className="btn-success"
+                            onClick={findEmployeeByIdentity}></Button>
+                    <Button id="findEmployees"
+                            label="Find Employees"
+                            className="btn-info"
+                            onClick={findEmployees}></Button>
+                    <Button id="hireEmployee"
+                            label="Hire Employee"
+                            className="btn-warning"
+                            onClick={hireEmployee}></Button>
+                    <Button id="fireEmployee"
+                            label="Fire Employee"
+                            className="btn-danger"
+                            onClick={fireEmployee}></Button>
+                    <Button id="updateEmployee"
+                            label="Update Employee"
+                            className="btn-primary"
+                            onClick={updateEmployee}></Button>
+                    </div>
                 </CardBody>
             </Card>
             <p></p>
