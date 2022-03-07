@@ -36,13 +36,14 @@ export default function Hr() {
         setEmployee({...employee, photo}) ;
     }
 
-    async function findEmployeeByIdentity(event){
-        const emp = await hrService.findEmployeeByIdentity(employee.identityNo);
+    function findEmployeeByIdentity(event){
+        hrService.findEmployeeByIdentity(employee.identityNo)
+                 .then(setEmployee);
     }
 
-    function findEmployees(event){
-        hrService.findAllEmployees()
-                 .then( emps => setEmployees(emps));
+    async function findEmployees(event){
+        setEmployees(await hrService.findAllEmployees());
+        // hrService.findAllEmployees().then(setEmployees)
     }
 
     function hireEmployee(event){
@@ -57,10 +58,13 @@ export default function Hr() {
     }
 
     function fireEmployee(event){
-
+        hrService.fireEmployee(employee.identityNo)
+                 .then(setEmployee);
     }
 
     function updateEmployee(event){
+        hrService.updateEmployee({...employee})
+                 .then(alert);
 
     }
 
