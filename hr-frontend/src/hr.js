@@ -7,6 +7,7 @@ import CardBody from "./components/card-body";
 import Input from "./components/Input";
 import Checkbox from "./components/Checkbox";
 import SelectBox from "./components/Selectbox";
+import Image from "./components/Image";
 
 export default function Hr() {
     const DEPARTMENTS = ["IT", "Sales", "Finance", "HR"];
@@ -25,6 +26,10 @@ export default function Hr() {
             newEmployee[name] = value;
         }
         setEmployee(newEmployee);
+    }
+
+    function handlePhotoChange(photo){
+        setEmployee({...employee, photo}) ;
     }
 
     return (
@@ -61,6 +66,11 @@ export default function Hr() {
                                handleChange={handleInputChange}
                                value={employee.department}
                                label="DEPARTMENT"></SelectBox>
+                    <Image id="photo"
+                           label="PHOTO"
+                           handleFileChange={handlePhotoChange}
+                           value={employee.photo}
+                           name="photo"></Image>
                 </CardBody>
             </Card>
             <p></p>
