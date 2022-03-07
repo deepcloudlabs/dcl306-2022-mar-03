@@ -5,6 +5,7 @@ import CardHeader from "./components/card-header";
 import Card from "./components/card";
 import CardBody from "./components/card-body";
 import Input from "./components/Input";
+import Checkbox from "./components/Checkbox";
 
 export default function Hr() {
     let [employee, setEmployee] =
@@ -12,12 +13,16 @@ export default function Hr() {
     let [employees, setEmployees] =
         useState(new Array());
 
-    function handleInputChange(event){
-      const name = event.target.name;
-      const value = event.target.value;
-      let newEmployee = {...employee};
-      newEmployee[name] = value;
-      setEmployee(newEmployee);
+    function handleInputChange(event) {
+        const name = event.target.name;
+        const value = event.target.value;
+        let newEmployee = {...employee};
+        if (name === 'fulltime') {
+            newEmployee[name] = !newEmployee[name];
+        } else {
+            newEmployee[name] = value;
+        }
+        setEmployee(newEmployee);
     }
 
     return (
@@ -26,21 +31,29 @@ export default function Hr() {
                 <CardHeader title="Employee"></CardHeader>
                 <CardBody>
                     <Input id="identityNo"
-                           inputChange={handleInputChange}
+                           handleChange={handleInputChange}
                            value={employee.identityNo}
                            label="IDENTITY NO"></Input>
                     <Input id="fullname"
-                           inputChange={handleInputChange}
+                           handleChange={handleInputChange}
                            value={employee.fullname}
                            label="FULL NAME"></Input>
                     <Input id="iban"
-                           inputChange={handleInputChange}
+                           handleChange={handleInputChange}
                            value={employee.iban}
                            label="IBAN"></Input>
                     <Input id="salary"
-                           inputChange={handleInputChange}
+                           handleChange={handleInputChange}
                            value={employee.salary}
                            label="SALARY"></Input>
+                    <Input id="birthYear"
+                           handleChange={handleInputChange}
+                           value={employee.birthYear}
+                           label="BIRTH YEAR"></Input>
+                    <Checkbox id="fulltime"
+                              handleChange={handleInputChange}
+                              value={employee.fulltime}
+                              label="FULL-TIME?"></Checkbox>
 
                 </CardBody>
             </Card>
