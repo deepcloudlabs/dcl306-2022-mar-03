@@ -6,8 +6,10 @@ import Card from "./components/card";
 import CardBody from "./components/card-body";
 import Input from "./components/Input";
 import Checkbox from "./components/Checkbox";
+import SelectBox from "./components/Selectbox";
 
 export default function Hr() {
+    const DEPARTMENTS = ["IT", "Sales", "Finance", "HR"];
     let [employee, setEmployee] =
         useState(new Employee());
     let [employees, setEmployees] =
@@ -54,7 +56,11 @@ export default function Hr() {
                               handleChange={handleInputChange}
                               value={employee.fulltime}
                               label="FULL-TIME?"></Checkbox>
-
+                    <SelectBox id="department"
+                               options={DEPARTMENTS}
+                               handleChange={handleInputChange}
+                               value={employee.department}
+                               label="DEPARTMENT"></SelectBox>
                 </CardBody>
             </Card>
             <p></p>
