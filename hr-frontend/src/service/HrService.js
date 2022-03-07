@@ -5,6 +5,14 @@ export default class HrService {
     constructor() {
     }
 
+    findAllEmployees = async () => {
+       return fetch(BASE_URL,{
+           headers: {
+               "Accept": "application/json"
+           }
+        }).then( res => res.json() );
+    }
+
     hireEmployee = async (emp) => {
        return fetch(BASE_URL,{
          method: "POST",

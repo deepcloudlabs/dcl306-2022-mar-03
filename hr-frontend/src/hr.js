@@ -41,7 +41,8 @@ export default function Hr() {
     }
 
     function findEmployees(event){
-
+        hrService.findAllEmployees()
+                 .then( emps => setEmployees(emps));
     }
 
     function hireEmployee(event){
