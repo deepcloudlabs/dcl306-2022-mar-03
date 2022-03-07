@@ -13,7 +13,7 @@ export default function Image(props) {
             <label className="input-group-text"
                    htmlFor={props.id}>{props.label}</label>
             <img id={props.id}
-                 style={{width: '128px'}}
+                 style={{height: '128px'}}
                  src={props.value}
                  className="img-thumbnail"/>
             <label className="btn btn-info">

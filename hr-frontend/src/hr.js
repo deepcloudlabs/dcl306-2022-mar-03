@@ -21,6 +21,54 @@ export default function Hr() {
 
     const hrService = new HrService();
 
+    let employeesCard = "";
+
+    if (employees.length > 0){
+        employeesCard = <Card>
+            <CardHeader title="Employees"></CardHeader>
+            <CardBody>
+                <table className="table table-hover table-striped table-bordered table-responsive">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Photo</th>
+                        <th>Identity</th>
+                        <th>Full Name</th>
+                        <th>Salary</th>
+                        <th>Iban</th>
+                        <th>Birth Year</th>
+                        <th>Department</th>
+                        <th>Full-time?</th>
+                        <th>Operations</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {
+                        employees.map( (emp,idx) => (
+                                <tr key={emp.identityNo}>
+                                    <td>{idx+1}</td>
+                                    <td><img style={{width: '32px'}} src={emp.photo} /></td>
+                                    <td onMouseOver={(event) => setEmployee(emp)}>{emp.identityNo}</td>
+                                    <td>{emp.fullname}</td>
+                                    <td>{emp.salary}</td>
+                                    <td>{emp.iban}</td>
+                                    <td>{emp.birthYear}</td>
+                                    <td><span className="badge">{emp.department}</span></td>
+                                    <td>{emp.fulltime ? 'FULL-TIME':'PART-TIME'}</td>
+                                    <td><Button id="fireEmployee"
+                                                label="Fire Employee"
+                                                className="btn-danger"
+                                                onClick={(event) => fireEmployeeByIdentity(event, emp.identityNo) }></Button></td>
+                                </tr>
+                            )
+                        )
+                    }
+                    </tbody>
+                </table>
+            </CardBody>
+        </Card>;
+    }
+
     function handleInputChange(event) {
         const {name, value} = event.target;
         let newEmployee = {...employee};
@@ -55,6 +103,15 @@ export default function Hr() {
                    setEmployees(emps);
                }
            });
+    }
+
+    function fireEmployeeByIdentity(event, identity){
+        hrService.fireEmployee(identity)
+                 .then( emp => {
+                     setEmployee(emp);
+                     setEmployees([...employees].filter( em => em.identityNo !== identity));
+                 });
+
     }
 
     function fireEmployee(event){
@@ -134,44 +191,7 @@ export default function Hr() {
                 </CardBody>
             </Card>
             <p></p>
-            <Card>
-                <CardHeader title="Employees"></CardHeader>
-                <CardBody>
-                    <table className="table table-hover table-striped table-bordered table-responsive">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Photo</th>
-                                <th>Identity</th>
-                                <th>Full Name</th>
-                                <th>Salary</th>
-                                <th>Iban</th>
-                                <th>Birth Year</th>
-                                <th>Department</th>
-                                <th>Full-time?</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            employees.map( (emp,idx) => (
-                                <tr key={emp.identityNo}>
-                                    <td>{idx+1}</td>
-                                    <td><img style={{width: '32px'}} src={emp.photo} /></td>
-                                    <td>{emp.identityNo}</td>
-                                    <td>{emp.fullname}</td>
-                                    <td>{emp.salary}</td>
-                                    <td>{emp.iban}</td>
-                                    <td>{emp.birthYear}</td>
-                                    <td><span className="badge">{emp.department}</span></td>
-                                    <td>{emp.fulltime ? 'FULL-TIME':'PART-TIME'}</td>
-                                </tr>
-                                )
-                            )
-                        }
-                        </tbody>
-                    </table>
-                </CardBody>
-            </Card>
+            {employeesCard}
         </Container>
     );
 }
