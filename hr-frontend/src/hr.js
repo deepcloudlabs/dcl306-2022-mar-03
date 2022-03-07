@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import Employee from "./model/employee";
 import Container from "./components/container";
 import CardHeader from "./components/card-header";
@@ -9,6 +9,8 @@ import Checkbox from "./components/Checkbox";
 import SelectBox from "./components/Selectbox";
 import Image from "./components/Image";
 import Button from "./components/Button";
+import HrService from "./service/HrService";
+import Badge from "./components/badge";
 
 export default function Hr() {
     const DEPARTMENTS = ["IT", "Sales", "Finance", "HR"];
@@ -16,6 +18,8 @@ export default function Hr() {
         useState(new Employee());
     let [employees, setEmployees] =
         useState(new Array());
+
+    const hrService = new HrService();
 
     function handleInputChange(event) {
         const {name, value} = event.target;
@@ -32,8 +36,8 @@ export default function Hr() {
         setEmployee({...employee, photo}) ;
     }
 
-    function findEmployeeByIdentity(event){
-
+    async function findEmployeeByIdentity(event){
+        const emp = await hrService.findEmployeeByIdentity(employee.identityNo);
     }
 
     function findEmployees(event){
@@ -41,7 +45,14 @@ export default function Hr() {
     }
 
     function hireEmployee(event){
-
+       hrService.hireEmployee({...employee})
+           .then( response => {
+               if (response.status.toLowerCase() === 'ok'){
+                   let emps = [...employees];
+                   emps.push({...employee});
+                   setEmployees(emps);
+               }
+           });
     }
 
     function fireEmployee(event){
@@ -92,10 +103,12 @@ export default function Hr() {
                            value={employee.photo}
                            name="photo"></Image>
                     <div className="input-group">
+                    <span className="form-label"></span>
                     <Button id="find"
                             label="Find Employee"
                             className="btn-success"
                             onClick={findEmployeeByIdentity}></Button>
+                    <span className="form-label"></span>
                     <Button id="findEmployees"
                             label="Find Employees"
                             className="btn-info"
@@ -118,7 +131,41 @@ export default function Hr() {
             <p></p>
             <Card>
                 <CardHeader title="Employees"></CardHeader>
-                <CardBody></CardBody>
+                <CardBody>
+                    <table className="table table-hover table-striped table-bordered table-responsive">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Photo</th>
+                                <th>Identity</th>
+                                <th>Full Name</th>
+                                <th>Salary</th>
+                                <th>Iban</th>
+                                <th>Birth Year</th>
+                                <th>Department</th>
+                                <th>Full-time?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            employees.map( (emp,idx) => (
+                                <tr key={emp.identityNo}>
+                                    <td>{idx+1}</td>
+                                    <td><img style={{width: '32px'}} src={emp.photo} /></td>
+                                    <td>{emp.identityNo}</td>
+                                    <td>{emp.fullname}</td>
+                                    <td>{emp.salary}</td>
+                                    <td>{emp.iban}</td>
+                                    <td>{emp.birthYear}</td>
+                                    <td><span className="badge">{emp.department}</span></td>
+                                    <td>{emp.fulltime ? 'FULL-TIME':'PART-TIME'}</td>
+                                </tr>
+                                )
+                            )
+                        }
+                        </tbody>
+                    </table>
+                </CardBody>
             </Card>
         </Container>
     );
